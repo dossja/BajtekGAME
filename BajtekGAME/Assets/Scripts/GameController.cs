@@ -11,11 +11,13 @@ public class GameController : MonoBehaviour
     private static int maxHealth = 10;
     private static float moveSpeed = 5f;
     private static float fireRate = 0.5f;
+    private static float bulletSize = 0.5f;
 
     public static int Health { get => health; set => health = value; }
     public static int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public static float FireRate { get => fireRate; set => fireRate = value; }
+    public static float BulletSize { get => bulletSize; set => bulletSize = value; }
 
     public TextMeshProUGUI healthText;
 
@@ -51,7 +53,23 @@ public class GameController : MonoBehaviour
 
     public static void HealPlayer(int healAmount)
     {
-        Health = Mathf.Min(MaxHealth, Health + healAmount);
+        Health = Mathf.Min(maxHealth, health + healAmount);
+    }
+
+    public static void MoveSpeedChange(float moveSpeedAmount)
+    {
+        moveSpeed += moveSpeedAmount;
+    }
+
+    public static void FireRateChange(float fireRateAmount)
+    {
+        if(fireRate > 0.1f) 
+            fireRate -= fireRateAmount;
+    }
+
+    public static void BulletSizeChange(float bulletSizeAmount)
+    {
+        bulletSize += bulletSizeAmount;
     }
 
     public static void KillPlayer()
