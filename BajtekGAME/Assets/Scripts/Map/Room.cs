@@ -17,6 +17,8 @@ public class Room : MonoBehaviour
             Debug.Log("Wrong level start");
             return;
         }
+
+        RoomController.instance.RegisterRoom(this);
     }
 
     private void OnDrawGizmos()

@@ -46,7 +46,7 @@ public class RoomController : MonoBehaviour
 
     void UpdateRoomQueue()
     {
-/*        if (isLoadingRoom)
+        if (isLoadingRoom)
             return;
         if (loadRoomQueue.Count == 0)
             return;
@@ -54,7 +54,7 @@ public class RoomController : MonoBehaviour
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
 
-        StartCoroutine(LoadRoomRoutine(currentLoadRoomData));*/
+        StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
     }
 
     public void LoadRoom(string name, int x, int y)
