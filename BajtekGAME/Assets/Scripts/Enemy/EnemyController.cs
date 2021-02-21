@@ -10,10 +10,17 @@ public enum EnemyState
     Attack
 };
 
+public enum EnemyType
+{
+    Melee,
+    Ranged
+};
+
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
     public EnemyState currentState = EnemyState.Wander;
+    public EnemyType enemyType;
 
     public float range;
     public float speed;
@@ -25,6 +32,8 @@ public class EnemyController : MonoBehaviour
     private bool dead = false;
     private bool cooldownAttack;
     private Vector3 randomDirection;
+
+    public GameObject bulletPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -39,16 +48,16 @@ public class EnemyController : MonoBehaviour
         {
             case (EnemyState.Wander):
                 Wander();
-                break;
+            break;
             case (EnemyState.Follow):
                 Follow();
-                break;
+            break;
             case (EnemyState.Die):
                 Die();
-                break;
+            break;
             case (EnemyState.Attack):
                 Attack();
-                break;
+            break;
         }
 
         if(IsPlayerInRange(range) && currentState != EnemyState.Die)
@@ -60,11 +69,10 @@ public class EnemyController : MonoBehaviour
             currentState = EnemyState.Wander;
         }
 
-        if(Vector3.Distance(transform.position, player.transform.position) <= 0.5f)
+        if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
             currentState = EnemyState.Attack;
         }
-
     }
 
     private bool IsPlayerInRange(float range)
@@ -110,8 +118,20 @@ public class EnemyController : MonoBehaviour
     {
         if(!cooldownAttack)
         {
-            GameController.DamagePlayer(1);
-            StartCoroutine(CoolDownCoroutine());
+            switch(enemyType)
+            {
+                case (EnemyType.Melee):
+                    GameController.DamagePlayer(1);
+                    StartCoroutine(CoolDownCoroutine());
+                break;
+                case (EnemyType.Ranged):
+                    GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
+                    bullet.GetComponent<BulletController>().GetPlayer(player.transform);
+                    bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+                    bullet.GetComponent<BulletController>().isEnemyBullet = true;
+                    StartCoroutine(CoolDownCoroutine());
+                break;
+            }
         }
 
     }
