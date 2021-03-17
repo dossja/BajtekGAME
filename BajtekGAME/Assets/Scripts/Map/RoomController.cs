@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class RoomInfo
 {
@@ -27,6 +28,9 @@ public class RoomController : MonoBehaviour
 
     bool isLoadingRoom = false;
 
+    bool spawnedBossRoom = false;
+    bool updatedRooms = false;
+
     private void Awake()
     {
         instance = this;
@@ -46,12 +50,43 @@ public class RoomController : MonoBehaviour
         if (isLoadingRoom)
             return;
         if (loadRoomQueue.Count == 0)
+        {
+            if (!spawnedBossRoom)
+                StartCoroutine(SpawnBossRoom());
+            else if(spawnedBossRoom && !updatedRooms)
+            {
+                foreach(Room room in loadedRooms)
+                {
+                    room.RemoveUnconnectedDoors();
+                }
+
+                updatedRooms = true;
+            }
             return;
+        }
 
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
 
         StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
+    }
+    
+    IEnumerator SpawnBossRoom()
+    {
+        spawnedBossRoom = true;
+        yield return new WaitForSeconds(0.5f);
+
+        if(loadRoomQueue.Count == 0)
+        {
+            Room bossRoom = loadedRooms[loadedRooms.Count - 1];
+            Room tempRoom = new Room(bossRoom.X, bossRoom.Y);
+
+            Destroy(bossRoom.gameObject);
+
+            var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+            loadedRooms.Remove(roomToRemove);
+            LoadRoom("End", tempRoom.X, tempRoom.Y);
+        }
     }
 
     public void LoadRoom(string name, int x, int y)

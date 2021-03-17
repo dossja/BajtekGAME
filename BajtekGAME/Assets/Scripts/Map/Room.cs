@@ -10,6 +10,14 @@ public class Room : MonoBehaviour
     public int X;
     public int Y;
 
+    private bool updatedDoors = false;
+
+    public Room(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
     public Door leftDoor, rightDoor, topDoor, bottomDoor;
     public List<Door> doors = new List<Door>();
     // Start is called before the first frame update
@@ -43,6 +51,15 @@ public class Room : MonoBehaviour
         }
 
         RoomController.instance.RegisterRoom(this);
+    }
+
+    private void Update()
+    {
+        if(name.Contains("End") && !updatedDoors)
+        {
+            RemoveUnconnectedDoors();
+            updatedDoors = true;
+        }
     }
 
     public void RemoveUnconnectedDoors()
