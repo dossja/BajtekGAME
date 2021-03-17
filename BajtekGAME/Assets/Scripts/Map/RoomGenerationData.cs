@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class RoomGenerationData : MonoBehaviour
+[CreateAssetMenu(fileName = "RoomGenerationData.asset", menuName = "RoomGenerationData/Room Data")]
+public class RoomGenerationData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int numberOfCrawlers;
+    public int iterationMin;
+    public int iterationMax;
 }

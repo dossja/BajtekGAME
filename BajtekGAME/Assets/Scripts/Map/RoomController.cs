@@ -34,11 +34,6 @@ public class RoomController : MonoBehaviour
 
     private void Start()
     {
-        LoadRoom("Start", 0, 0);
-        LoadRoom("Empty", 1, 0);
-        LoadRoom("Empty", -1, 0);
-        LoadRoom("Empty", 0, 1);
-        LoadRoom("Empty", 0, -1);
     }
 
     private void Update()
