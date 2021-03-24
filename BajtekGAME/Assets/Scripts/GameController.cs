@@ -10,8 +10,15 @@ public class GameController : MonoBehaviour
     private static int health = 10;
     private static int maxHealth = 10;
     private static float moveSpeed = 5f;
+    [SerializeField]
     private static float fireRate = 0.5f;
     private static float bulletSize = 0.5f;
+
+    private bool speedCollected = false;
+    private bool attackSpeedCollected = false;
+    private bool bulletSizeCollected = false;
+
+    public List<string> collectedNames = new List<string>();
 
     public static int Health { get => health; set => health = value; }
     public static int MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -47,8 +54,6 @@ public class GameController : MonoBehaviour
         {
             KillPlayer();
         }
-
-
     }
 
     public static void HealPlayer(int healAmount)
@@ -70,6 +75,32 @@ public class GameController : MonoBehaviour
     public static void BulletSizeChange(float bulletSizeAmount)
     {
         bulletSize += bulletSizeAmount;
+    }
+
+    public void UpdateCollectedItems(CollectionController item)
+    {
+        collectedNames.Add(item.item.name);
+
+        foreach(string i in collectedNames)
+        {
+            switch(i)
+            {
+                case "Speed":
+                    speedCollected = true;
+                    break;
+                case "Attack":
+                    attackSpeedCollected = true;
+                    break;
+                case "Bullet":
+                    bulletSizeCollected = true;
+                    break;
+            }
+        }
+
+        if(speedCollected && attackSpeedCollected && bulletSizeCollected)
+        {
+            FireRateChange(0.1f);
+        }
     }
 
     public static void KillPlayer()
