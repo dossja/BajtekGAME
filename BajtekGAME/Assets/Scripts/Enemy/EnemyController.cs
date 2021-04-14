@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum EnemyState
 {
+    Idle,
     Wander,
     Follow,
     Die,
@@ -33,6 +34,8 @@ public class EnemyController : MonoBehaviour
     private bool cooldownAttack;
     private Vector3 randomDirection;
 
+    public bool notInRoom = false;
+
     public GameObject bulletPrefab;
 
     // Start is called before the first frame update
@@ -46,6 +49,9 @@ public class EnemyController : MonoBehaviour
     {
         switch(currentState)
         {
+            case (EnemyState.Idle):
+                Idle();
+            break;
             case (EnemyState.Wander):
                 Wander();
             break;
@@ -60,18 +66,25 @@ public class EnemyController : MonoBehaviour
             break;
         }
 
-        if(IsPlayerInRange(range) && currentState != EnemyState.Die)
+        if(!notInRoom)
         {
-            currentState = EnemyState.Follow;
-        }
-        else if(!IsPlayerInRange(range) && currentState != EnemyState.Die)
-        {
-            currentState = EnemyState.Wander;
-        }
+            if(IsPlayerInRange(range) && currentState != EnemyState.Die)
+            {
+                currentState = EnemyState.Follow;
+            }
+            else if(!IsPlayerInRange(range) && currentState != EnemyState.Die)
+            {
+                currentState = EnemyState.Wander;
+            }
 
-        if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            {
+                currentState = EnemyState.Attack;
+            }
+        }
+        else
         {
-            currentState = EnemyState.Attack;
+            currentState = EnemyState.Idle;
         }
     }
 
@@ -89,6 +102,11 @@ public class EnemyController : MonoBehaviour
 
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDirection = false;
+    }
+
+    void Idle()
+    {
+
     }
 
     void Wander()
