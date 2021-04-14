@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 4810402379090930513, guid: 306c29f9fb04c784ea1a8d93adb9147d, type: 3}
     weight: 0.4
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 6586902132066967366, guid: 8f01fa45112ca8346a65c7be1015b1b6, type: 3}
     weight: 0.2
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 3647601284336711172, guid: 962589bdbdee1694988ab4b4136210a8, type: 3}
     weight: 0.2
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 5057742072718615320, guid: e5e69948d8531d545ad85076fb297b1d, type: 3}
     weight: 0.2

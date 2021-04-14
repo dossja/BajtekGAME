@@ -502,6 +502,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1686704430}
+  spawnerData:
+  - name: ChaseEnemy
+    spawnerData: {fileID: 11400000, guid: 6392985e9c6d99d43985284ba2c4fe6b, type: 2}
+  - name: RangeEnemy
+    spawnerData: {fileID: 11400000, guid: c95a499a0a23d6846b772a2e8d80a4c5, type: 2}
+  - name: Item
+    spawnerData: {fileID: 11400000, guid: e2c96b34a6b54ec4ea21ee46140d724a, type: 2}
 --- !u!1 &1031963512
 GameObject:
   m_ObjectHideFlags: 0
