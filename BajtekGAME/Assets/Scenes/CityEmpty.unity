@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 980687717}
   - component: {fileID: 980687716}
   - component: {fileID: 980687718}
+  - component: {fileID: 980687719}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -458,6 +459,7 @@ Transform:
   - {fileID: 2137094826}
   - {fileID: 1575740772}
   - {fileID: 1031963513}
+  - {fileID: 1686704429}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -487,6 +489,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 19, y: 10.3}
   m_EdgeRadius: 0
+--- !u!114 &980687719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980687715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf37ee052f9b6849bc22be5ebfd134b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
 --- !u!1 &1031963512
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +801,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorType: 0
+--- !u!1 &1686704428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1686704429}
+  - component: {fileID: 1686704430}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1686704429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686704428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 980687717}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686704430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686704428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb277fb6ad915544a850918663b43324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 0}
+  grid:
+    columns: 20
+    rows: 11
+    verticalOffset: 5
+    horizontalOffset: 9.5
+  gridTile: {fileID: 6455836997729824092, guid: 2db4acc8d77998a4fb3a75fc4b57e0f3, type: 3}
+  availablePoints: []
 --- !u!1 &1739402831
 GameObject:
   m_ObjectHideFlags: 0
