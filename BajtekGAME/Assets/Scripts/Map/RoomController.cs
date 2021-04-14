@@ -173,7 +173,7 @@ public class RoomController : MonoBehaviour
         UpdateRooms();
     }
 
-    private void UpdateRooms()
+    public void UpdateRooms()
     {
         foreach(Room room in loadedRooms)
         {
@@ -187,17 +187,42 @@ public class RoomController : MonoBehaviour
                         enemy.notInRoom = true;
                         Debug.Log("Not in room");
                     }
+
+                    foreach(Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
+                    }
+                }
+
+                else
+                {
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
+                    }
                 }
             }
             else
             {
                 EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
-                if (enemies != null)
+                if (enemies.Length > 0)
                 {
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = false;
                         Debug.Log("In room");
+                    }
+
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(true);
+                    }
+                }
+                else
+                {
+                    foreach (Door door in room.GetComponentsInChildren<Door>())
+                    {
+                        door.doorCollider.SetActive(false);
                     }
                 }
             }
