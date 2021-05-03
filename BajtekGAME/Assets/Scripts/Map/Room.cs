@@ -12,6 +12,8 @@ public class Room : MonoBehaviour
 
     private bool updatedDoors = false;
 
+    public GameObject topCollider, bottomCollider, rightCollider, leftCollider;
+
     public Room(int x, int y)
     {
         X = x;

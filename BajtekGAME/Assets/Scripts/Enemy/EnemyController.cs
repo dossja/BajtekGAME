@@ -156,7 +156,7 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        RoomController.instance.UpdateRooms();
+        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
         Destroy(gameObject);
     }
 }

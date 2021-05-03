@@ -62,6 +62,37 @@ public class RoomController : MonoBehaviour
 
                 UpdateRooms();
                 updatedRooms = true;
+
+                foreach (Room room in loadedRooms)
+                {
+                    string name = (room.name);
+                    int x = int.Parse(name.Split(' ')[1].Split(',')[0]);
+                    int y = int.Parse(name.Split(' ')[2]);
+
+                    string xy = (x + 1) + ", " + y;
+
+                    if (!GameObject.Find(currentWorldName + "-Basic1 " + xy) && !GameObject.Find(currentWorldName + "-Empty " + xy)
+                        && !GameObject.Find(currentWorldName + "-End " + xy) && !GameObject.Find(currentWorldName + "-Start " + xy))
+                        room.rightCollider.GetComponent<BoxCollider2D>().enabled = true;
+
+                    xy = (x - 1) + ", " + y;
+
+                    if (!GameObject.Find(currentWorldName + "-Basic1 " + xy) && !GameObject.Find(currentWorldName + "-Empty " + xy)
+                        && !GameObject.Find(currentWorldName + "-End " + xy) && !GameObject.Find(currentWorldName + "-Start " + xy))
+                        room.leftCollider.GetComponent<BoxCollider2D>().enabled = true;
+
+                    xy = x + ", " + (y + 1);
+
+                    if (!GameObject.Find(currentWorldName + "-Basic1 " + xy) && !GameObject.Find(currentWorldName + "-Empty " + xy)
+                        && !GameObject.Find(currentWorldName + "-End " + xy) && !GameObject.Find(currentWorldName + "-Start " + xy))
+                        room.topCollider.GetComponent<BoxCollider2D>().enabled = true;
+
+                    xy = x + ", " + (y - 1);
+
+                    if (!GameObject.Find(currentWorldName + "-Basic1 " + xy) && !GameObject.Find(currentWorldName + "-Empty " + xy)
+                        && !GameObject.Find(currentWorldName + "-End " + xy) && !GameObject.Find(currentWorldName + "-Start " + xy))
+                        room.bottomCollider.GetComponent<BoxCollider2D>().enabled = true;
+                }
             }
             return;
         }
@@ -170,6 +201,14 @@ public class RoomController : MonoBehaviour
 
         currentRoom = room;
 
+        Debug.Log(currentRoom.transform.position);
+
+        StartCoroutine(RoomCoroutine());
+    }
+
+    public IEnumerator RoomCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
         UpdateRooms();
     }
 
@@ -185,7 +224,6 @@ public class RoomController : MonoBehaviour
                     foreach(EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = true;
-                        Debug.Log("Not in room");
                     }
 
                     foreach(Door door in room.GetComponentsInChildren<Door>())
@@ -210,7 +248,6 @@ public class RoomController : MonoBehaviour
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = false;
-                        Debug.Log("In room");
                     }
 
                     foreach (Door door in room.GetComponentsInChildren<Door>())
